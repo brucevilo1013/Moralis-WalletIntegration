@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179025097-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-179025097-1');
+
+
+    </script>
+    <title>Gold Diamond World</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta property="og:title" content="Leonardo da Vinci 500th Anniversary"/>
+    <meta property="og:description" content="180 Owners of the World on Internet Masterpiece"/>
+    <meta property="og:image" content="http://golddiamondworld.com/GDW.png"/>
+    <meta property="og:url" content="http://golddiamondworld.com">
+    <meta name="viewport" content="width=device-width, initial-scale=0.4"/>
+
+    <script type="text/javascript">
+
+    </script>
+    <script src="assets/jquery-1.8.2.js"></script>
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            document.body.style.zoom = 0.9
+
+
+            document.getElementById("map1").style.display = "block";
+            document.getElementById("map1").style.marginTop = "-384px";
+
+
+            const options = {method: 'GET', headers: {Accept: 'application/json'}};
+            var soldCount = null;
+
+            //get the collection from opensea
+            fetch('https://api.opensea.io/api/v1/collection/gdw/stats', options)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    let soldCount = data;
+                    document.getElementById("liveNews").innerHTML = data.stats.count + " COUNTRIES SOLD";
+
+                })
+                .catch(err => console.error(err));
+
+
+            var prices = {
+
+                "FR": 'To Be Released',
+                "US": '50 ETH',
+                "GB": 'To Be Released',
+                "RU": 'To Be Auctioned',
+                "IT": ' - Leonardo da Vinci',
+                "CA": 'To Be Released',
+                "GL": 'To Be Released',
+                "CN": 'To Be Released',
+                "GL": 'to Be Released',
+                "AU": 'To Be Auctioned',
+                "PT": '',
+                "IS": '',
+                "IE": 'To Be Auctioned',
+                "ME": '',
+                "ME": '',
+                "_1": '',
+                "AL": '',
+                "CN": 'To Be Auctioned',
+                "AE": 'To Be Auctioned',
+                "LY": 'Not for sale',
+                "MN": '1 ETH',
+                "IR": 'Not for sale',
+                "CH": 'Not for sale',
+                "AM": 'Not for sale',
+                "TR": 'Not for sale',
+                "MK": 'Not for sale',
+                "SI": 'Not for sale',
+                "TH": '1 ETH',
+                "KR": '1 ETH'
+
+            };
+
+            var owners = {
+
+                "IT": 'Leonardo da Vinci',
+                "MN": 'Buuvei',
+                "IR": 'Ali Sabet',
+                "CH": 'Dario de Seina',
+                "AM": 'Ani Mkhitaryan',
+                "TR": 'Moon Wolf',
+                "MK": 'Darko Ristevski',
+                "SI": 'Norma De Saint Picman',
+                "TH": 'Matti',
+                "KR": 'Nick'
+
+            };
+
+            var OpenseaUsernames = {
+
+                "IT": 'N/A',
+                "MN": 'buuvei',
+                "IR": 'sabet',
+                "CH": 'darioDeSiena',
+                "AM": 'animkhitaryan',
+                "TR": 'plink',
+                "MK": 'darkoR',
+                "SI": 'normadesainpicman',
+                "TH": 'richo',
+                "KR": 'thisismycryptoname'
+
+            };
+
+
+            var countryName = null;
+            var markerCode = null;
+            var fixedRegion = false;
+
+        });
+
+    </script>
+
+
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: black;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 32px;
+            border: 1px solid #888;
+            border-radius: 32px;
+            width: 400px; /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body id="body1" style=" background-color: black; margin: 0px; padding: 0px; height:100%; ">
+
+
+    <div style=" background: #DD9945 no-repeat center center/cover; margin: 0px 0px 0px 0px; padding: 0px; height:100px; ">
+        <div style="width:100%; height: 6px; background-color:black; position:relative; padding:none; margin-top:0px; margin-bottom:4px;"></div>
+        <div style="width:100%; height: 60px; background-color:black; position:relative;  ">
+
+            <div style="float:left;  height:60px; padding-left:30px; "><img src="gdwlogo.png" style="margin-top:16px;">
+            </div>
+            <div id="flag" style="float:left; display:none; margin-top:10px; margin-left:20px;" height="60px"></div>
+            <div id="price"
+                 style="float:left; display:none; font-family:arial; color:#F9BE32; margin-top:20px; margin-left:20px; width:250px;"></div>
+            <div style=" float:right;  height:60px; ">
+                <p style="font-family: arial; font-weight: regular; float:right; color:#CCC; font-size:14px; margin-top:16px; padding-right: 50px; ">
+                    <span style="float:right;">THE FIBONACCI WORLD IN HONOR OF LEONARDO DA VINCI. 2019</span> <br> <span
+                        style="float:right;">180 NFT COUNTRIES. OWN A PIECE OF DIGITAL HISTORY</span><br></p>
+            </div>
+        </div>
+        <div style="width:100%; height: 6px; background-color:black; position:relative; padding:none; margin-top:4px; ">
+        </div>
+
+        <div style="width:240px; height: 36px;  position:relative; padding-left:40px; padding-top:10px; margin-top:4px; font-family: arial; font-weight: regular; color:#666666; font-size:13px;">
+
+            <a href="https://golddiamondworld.com/pricing.html" target="_blank"
+               style="text-decoration: inherit; color: inherit;">HOW TO BUY COUNTRY NFT</a>
+            </br>
+            </br>
+            <a href="https://opensea.io/collection/gdw" target="_blank" style="text-decoration: inherit; color: inherit;">OPENSEA
+                @GDW</a>
+            </br>
+            </br>
+            <a href="https://golddiamondworld.com/code.html" target="_blank"
+               style="text-decoration: inherit; color: inherit;">THE DIGITAL BOOK</a>
+            </br>
+            </br>
+            <a href="http://www.CryptoLouvre.com" target="_blank" style="text-decoration: inherit; color: inherit;">CRYPTO
+                LOUVRE</a>
+            </br>
+            </br>
+            <a href="https://verisart.com/works/6ef0897c-c5d8-44b8-9265-e26f79ecb63c" target="_blank"
+               style="text-decoration: inherit; color: inherit;">BITCOIN CERTIFICATE</a>
+            </br>
+
+        </div>
+    </div>
+
+
+    <div id="mainDiv"
+         style=" background: #454845 url(background.jpg) no-repeat  center/cover; margin: -40px 0px 0px 0px; padding: 0px; padding-bottom:250px; width:100%; height:100%;  ">
+
+
+        <div style=" height:60px; margin:0px auto 0px auto; font-family: arial;  ">
+            <p style="font-family: arial; font-weight: regular; color:#FFFFFF; font-size:14px; padding-top:36px;
+    text-align: center; "></p>
+
+
+            <div style="float: right; margin-right: 200px; ">
+                <div>
+                    <!--  connect wallet button-->
+                    <button
+                            id="btn-connect"
+                            style="
+                        width: 300px;
+                        padding: 8px; border-radius: 4px; cursor: pointer;    border-radius: 24px;
+                        cursor: pointer;
+                        color: white;
+                        background: hotpink;
+                        font-size: 24px;"
+                    >
+                        CONNECT WALLET
+                    </button>
+                </div>
+
+
+                <div>
+                    <!--  edit nft button-->
+                    <button
+                            id="btn-edit"
+                            style="
+                        display: none;
+                        width: 300px;
+                        float: right;
+                        margin-top: 16px;
+                        padding: 8px; border-radius: 4px; cursor: pointer;    border-radius: 24px;
+                        cursor: pointer;
+                        color: white;
+                        background: black;
+                        font-size: 24px;"
+                    >
+                        EDIT
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="map0"
+             style="width:908px; height: 543px; z-index:2;   box-shadow: 0px 56px 80px rgba(0, 0, 0, .9); margin:20px auto 0px auto;  background-size: contain;background-repeat: no-repeat; ">
+            <div id="mapContainer" style="width:908px; height: 543px; z-index:1;">
+                <div id="mapx" style="width:742px; height: 381px; margin:0px auto 0px auto; padding-top:80px;"></div>
+                <div id="map1"
+                     style="position:absolute; width:742px; height: 381px; margin:0px auto 0px auto; margin-left:82px;"></div>
+
+                <div id="mapUK"
+                     style="position:absolute; width:742px; height: 381px; margin:0px auto 0px auto; margin-left:82px;"></div>
+
+                <div id="mapUS"
+                     style="position:absolute; width:742px; height: 381px; margin:0px auto 0px auto;  margin-left:82px; "></div>
+
+                <div id="mapAM"
+                     style="position:absolute;  width:742px; height: 381px; margin:0px auto 0px auto;  margin-left:82px;"></div>
+
+                <div id="mapLDN"
+                     style="position:absolute;  width:742px; height: 381px; margin:0px auto 0px auto;  margin-left:82px;"></div>
+
+                <div style="position:absolute;  margin:-24px auto 0px auto;  margin-left:88px;,  z-index:999999;"><img
+                        id="backUS" style="height:20px;"></div>
+
+                <div style=" z-index:2;  margin-left:-240px; margin-top:-100px; width:200px;">
+                    <p style="font-family: Arial; font-size: 11px; color:#888; "><span style="font-weight: bold;">Serag da Giado (b. 1985)</span><br><span
+                            style="font-style:italic;">Gold Diamond World, 2010-2019</span><br><span
+                            style="font-weight: lighter;margin-bottom:10px;">Pixel on digital canvas</span><br><br><span
+                            style="font-weight: lighter; font-size:11px; position-relative;">Created using math and science to honor Leonardo da Vinci in the digital age and symobolize the connection betwen human and universe. </span>
+                    </p>
+                    <!--<img src="artistlabel.png" alt="Artist" width="209" style="margin-left:-240px; margin-top:-80px; ">-->
+                </div>
+
+
+                <div id="mundi" style="display:none; margin-left:940px; margin-top:-440px; "><img src="" alt="Artist"
+                                                                                                  width="207"></div>
+                <div id="leo" style=" display:none; margin-left:930px; margin-top:10px;"><img src="" alt="Artist"
+                                                                                              width="217"></div>
+
+                <div id='ownerdiv' style="margin-left:940px; margin-top:-460px; width:200px;">
+
+
+                    <!-- country owners -->
+                    <div id="owner"
+                         style="background: no-repeat center center/cover; box-shadow: 1px 3px 15px; width:180px; background-color:white; padding:2px; padding-left:10px; display:block; margin-left:4px; "></div>
+
+                    <div id="ownerState"
+                         style="background: no-repeat center center/cover; box-shadow: 1px 3px 15px; width:180px; background-color:white; padding:2px; padding-left:10px; display:none; margin-left:4px; margin-top:10px; "></div>
+
+                    <div id="ownerCounty"
+                         style="background:no-repeat center center/cover; box-shadow: 1px 3px 15px; width:180px; background-color:white; padding:2px; padding-left:10px; display:none; margin-left:4px; margin-top:10px; "></div>
+
+                    <div id="ownerCity"
+                         style="background:  no-repeat center center/cover; box-shadow: 1px 3px 15px; width:180px; background-color:white; padding:2px; padding-left:10px; display:none; margin-left:4px; margin-top:10px; "></div>
+
+                    <div id="ownerframe" style="display:none;  margin-top:40px; "><img src=""></div>
+                    <div id="ownerUS" style="display:none; margin-top:40px; "><img src=""></div>
+                    <div id="ownerIR" style="display:block;  margin-top:40px; "><img src="ownerIran.png"></div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="liveNews" class="bn-label" style="color:#fff; font-size: 18px; padding:12px;"></div>
+
+        <!-- Add The Modal -->
+        <div id="walletModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div style="display: flex; flex-direction: column; align-items: center">
+                    <h3 style="color: white; font-size: 24px">
+                        CONNECT TO WALLET
+                    </h3>
+
+                    <button
+                            id="btn-mm"
+                            style="
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 300px;
+                            margin-top: 12px;
+                            padding: 8px; border-radius: 4px; cursor: pointer;    border-radius: 24px;
+                            cursor: pointer;
+                            color: white;
+                            background: black;
+                            border: 2px solid gold;
+                            font-size: 24px;"
+                    >
+                        <img src="metamaskIcon.png"  style="width: 40px">
+                        &nbsp;&nbsp;
+                        METAMASK
+                    </button>
+
+
+                    <button
+                            id="btn-wc"
+                            style="
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 300px;
+                            margin-top: 32px;
+                            padding: 8px; border-radius: 4px; cursor: pointer;    border-radius: 24px;
+                            cursor: pointer;
+                            color: white;
+                            background: black;
+                            border: 2px solid gold;
+                            font-size: 24px;"
+                    >
+                        <img src="walletconnectIcon.png" style="width: 40px">
+                        &nbsp;&nbsp;
+                        WALLET CONNECT
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="https://github.com/WalletConnect/walletconnect-monorepo/releases/download/1.7.1/web3-provider.min.js"></script>
+<!--    <script src="https://unpkg.com/moralis@0.0.184/dist/moralis.js"></script>-->
+    <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+    <script src="moralis.js"></script>
+    <script>
+
+        var ukRegion = null;
+        var regionClicked = "IR";
+        var fixedCountry = false;
+        var fixedState = false;
+        var code = "IR"
+        var countryName = "Iran"
+
+        // address of nft's.  IR is Iran. AM is Armenia.
+        var NFTasset = {
+            "IR": '22397481368411838953467959367242755130058808779998063417175655766280300920833',
+            "AM": '22397481368411838953467959367242755130058808779998063417175655769578835804161'
+        };
+
+
+        // if (logged in users wallet contains NFTasset["IR"] )  { countryName = "Iran is Owned by you" }
+
+
+        document.getElementById("flag").style.display = "block";
+        document.getElementById("flag").innerHTML = "<img style='height:40px;' src='flags/" + code + ".png'>";
+        document.getElementById("price").style.display = "block";
+        document.getElementById("price").innerHTML = "<a style='font-weight: bold; font-size:20px;'>" + countryName + "</a>";
+        document.getElementById("owner").style.display = "block";
+        document.getElementById("ownerIR").style.display = "block";
+
+        document.getElementById("owner").innerHTML = "<P style='font-family:Arial; margin-top:2px; padding-bottom:4px;'><span style='font-weight: bold; font-size:16px;'>" + "Ali Sabet" + " <img style='height:20px; position:relative; top:4px; margin-left:4px;' src='verifyB.png'> " + "</span><br><a href='https://opensea.io/assets/0x495f947276749ce646f68ac8c248420045cb7b5e/22397481368411838953467959367242755130058808779998063417175655766280300920833' target='_blank' style='font-weight: bold; color:#da9100; font-style:italic; font-size:16px;'>" + "Owner of Iran" + " <img style='height:16px; position:relative; top:3px; margin-left:4px;' src='openseaIcon.png'> " + "</a><br><span style='font-size:13px;'>" + "Acquired 24.4.2021" + "<br><br>" + "<a href='https://opensea.io/collection/sabet' target='_blank' style='color:black; font-weight:bold; font-size:13px;'>NFT Collection @Sabet</a>" + "<br><span style='font-style:italic; font-size:13px; margin-left:-6px; '>" + "''Iranian-American Painter / Designer / Energy Healer''" + "</span><br><br>" + "Owns " + "<a href='https://opensea.io/assets/0x495f947276749ce646f68ac8c248420045cb7b5e/1320647387308535254427024482131342257786249516275092859116705959376662298634' target='_blank' style='font-weight: bold; color: black; font-style:italic; font-size:13px;'>" + "'Speed Racer 2021'" + "</a><br>" + "<span style='float:right; padding-right:6px; padding-top:4px; margin-bottom:4px;'>Fibonacci 55</span>" + "</P>"
+
+        // add modal script
+        // Get the modal
+        var modal = document.getElementById("walletModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("btn-connect");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+
+</body>
+</html>

@@ -7,6 +7,14 @@ async function mmLogin() {
         signingMessage: "Log in using Moralis",
     })
         .then(function (user) {
+            // const options = {
+            //     chain: "eth",
+            //     address: "0x22397481368411838953467959367242755130058808779998063417175655769578835804161",
+            // };
+            // Moralis.Web3API.account.getNFTs(options).then((nft) => {
+            //     console.log('nft with mm', nft)
+            //
+            // });
             $('#btn-connect').hide();
             $('#btn-edit').show();
             console.log("logged in user with metamask:", user);

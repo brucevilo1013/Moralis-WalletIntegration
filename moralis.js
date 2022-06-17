@@ -1,24 +1,42 @@
 const serverUrl = 'https://hx9knjepxmfk.usemoralis.com:2053/server'
 const appId = "PjagqHmJQZGW44ans3RjzciwRvCsvLxArHQObPh2";
 Moralis.start({ serverUrl: serverUrl, appId: appId });
+
+const nftId = '22397481368411838953467959367242755130058808779998063417175655769578835804161';
+let user = Moralis.User.current();
+
 async function mmLogin() {
-    let user = Moralis.User.current();
+    if (typeof window.ethereum === 'undefined') {
+        console.log('MetaMask is uninstalled!');
+        $('.alert').show();
+        return false;
+    }
+
     user = await Moralis.authenticate({
         signingMessage: "Log in using Moralis",
     })
         .then(function (user) {
+            $('#btn-connect').hide();
+            $('#walletModal').hide();
+            console.log("logged in user with metamask:", user);
+            console.log(user.get("ethAddress"));
+
             // const options = {
             //     chain: "eth",
-            //     address: "0x22397481368411838953467959367242755130058808779998063417175655769578835804161",
+            //     address: "0x9B3011d6Db7512F5C379d83F73a3962A950385dA",
             // };
             // Moralis.Web3API.account.getNFTs(options).then((nft) => {
             //     console.log('nft with mm', nft)
-            //
             // });
-            $('#btn-connect').hide();
-            $('#btn-edit').show();
-            console.log("logged in user with metamask:", user);
-            console.log(user.get("ethAddress"));
+
+            Moralis.Web3API.account.getNFTs().then((userEthNFTs) => {
+               if (userEthNFTs.result.length) {
+                   const nfts = userEthNFTs.result.filter((nft) => nft?.token_id === nftId);
+                   if (nfts.length) {
+                       $('#btn-edit').show();
+                   }
+               }
+            });
         })
         .catch(function (error) {
             $('#btn-connect').show();
@@ -29,13 +47,21 @@ async function mmLogin() {
 document.getElementById("btn-mm").onclick = mmLogin;
 
 async function wcLogin() {
-    let user = Moralis.User.current();
     user = Moralis.authenticate({ provider: "walletconnect" })
         .then(function (user) {
-            $('#btn-connect').hide();
-            $('#btn-edit').show();
             console.log("logged in user with wallet connect:", user);
             console.log(user.get("ethAddress"));
+            $('#btn-connect').hide();
+            $('#walletModal').hide();
+
+            Moralis.Web3API.account.getNFTs().then((userEthNFTs) => {
+                if (userEthNFTs.result.length) {
+                    const nfts = userEthNFTs.result.filter((nft) => nft?.token_id === nftId);
+                    if (nfts.length) {
+                        $('#btn-edit').show();
+                    }
+                }
+            });
         })
         .catch(function (error) {
             $('#btn-connect').show();

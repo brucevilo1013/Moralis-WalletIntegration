@@ -159,18 +159,44 @@
         }
 
         /* The Close Button */
-        .close {
+        .modal-close {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
 
-        .close:hover,
-        .close:focus {
+        .modal-close:hover,
+        .modal-close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        /*Alert style*/
+        .alert {
+            display: none;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+        }
+
+        .alert-closebtn {
+            padding-right: 50px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .alert-closebtn:hover {
+            color: black;
         }
     </style>
 </head>
@@ -197,6 +223,7 @@
                         cursor: pointer;
                         color: white;
                         background: hotpink;
+                        font-family: arial;
                         font-size: 24px;"
                 >
                     CONNECT WALLET
@@ -260,6 +287,7 @@
                         cursor: pointer;
                         color: white;
                         background: black;
+                        font-family: arial;
                         font-size: 24px;"
                     >
                         EDIT
@@ -339,7 +367,7 @@
         <div id="walletModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="modal-close">&times;</span>
                 <div style="display: flex; flex-direction: column; align-items: center">
                     <h3 style="color: white; font-size: 24px">
                         CONNECT TO WALLET
@@ -390,6 +418,12 @@
 
         </div>
 
+        <!--   Add Alert-->
+        <div class="alert">
+            <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            You do not have Metamask installed on this browser. Please Install and try again
+        </div>
+
     </div>
     <script src="https://github.com/WalletConnect/walletconnect-monorepo/releases/download/1.7.1/web3-provider.min.js"></script>
 <!--    <script src="https://unpkg.com/moralis@0.0.184/dist/moralis.js"></script>-->
@@ -431,7 +465,7 @@
         var btn = document.getElementById("btn-connect");
 
         // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+        var span = document.getElementsByClassName("modal-close")[0];
 
         // When the user clicks on the button, open the modal
         btn.onclick = function() {

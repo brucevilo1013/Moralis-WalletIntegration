@@ -2,7 +2,7 @@ const serverUrl = 'https://hx9knjepxmfk.usemoralis.com:2053/server'
 const appId = "PjagqHmJQZGW44ans3RjzciwRvCsvLxArHQObPh2";
 Moralis.start({ serverUrl: serverUrl, appId: appId });
 
-const nftId = '22397481368411838953467959367242755130058808779998063417175655769578835804161';
+const nftId = '22397481368411838953467959367242755130058808779998063417175655776175905570817';
 let user = Moralis.User.current();
 
 async function mmLogin() {

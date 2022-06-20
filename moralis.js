@@ -23,7 +23,7 @@ async function mmLogin() {
 
             // const options = {
             //     chain: "eth",
-            //     address: "0x9B3011d6Db7512F5C379d83F73a3962A950385dA",
+            //     address: "0x495f947276749Ce646f68AC8c248420045cb7b5e",
             // };
             // Moralis.Web3API.account.getNFTs(options).then((nft) => {
             //     console.log('nft with mm', nft)

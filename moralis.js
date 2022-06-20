@@ -30,6 +30,7 @@ async function mmLogin() {
             // });
 
             Moralis.Web3API.account.getNFTs().then((userEthNFTs) => {
+                console.log('user nfts', userEthNFTs)
                if (userEthNFTs.result.length) {
                    const nfts = userEthNFTs.result.filter((nft) => nft?.token_id === nftId);
                    if (nfts.length) {

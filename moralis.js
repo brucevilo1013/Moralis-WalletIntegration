@@ -6,21 +6,16 @@ const nftId = '22397481368411838953467959367242755130058808779998063417175655776
 let user = Moralis.User.current();
 
 async function mmLogin() {
-    alert(`eth window state ${typeof window.ethereum}`)
     if (typeof window.ethereum === 'undefined') {
         console.log('MetaMask is uninstalled!');
-        alert('no install mm')
         $('.alert').show();
         return false;
     }
-
-    alert(`user - state -${JSON.stringify(user)}`)
 
     user = await Moralis.authenticate({
         signingMessage: "Log in using Moralis",
     })
         .then(function (user) {
-            alert(`login success - ${JSON.stringify(user)}`)
             $('#btn-connect').hide();
             $('#walletModal').hide();
             console.log("logged in user with metamask:", user);
@@ -34,18 +29,17 @@ async function mmLogin() {
             //     console.log('nft with mm', nft)
             // });
 
-            // Moralis.Web3API.account.getNFTs().then((userEthNFTs) => {
-            //     console.log('user nfts', userEthNFTs)
-            //    if (userEthNFTs.result.length) {
-            //        const nfts = userEthNFTs.result.filter((nft) => nft?.token_id === nftId);
-            //        if (nfts.length) {
-            //            $('#btn-edit').show();
-            //        }
-            //    }
-            // });
+            Moralis.Web3API.account.getNFTs().then((userEthNFTs) => {
+                console.log('user nfts', userEthNFTs)
+               if (userEthNFTs.result.length) {
+                   const nfts = userEthNFTs.result.filter((nft) => nft?.token_id === nftId);
+                   if (nfts.length) {
+                       $('#btn-edit').show();
+                   }
+               }
+            });
         })
         .catch(function (error) {
-            alert(`catch - error${JSON.stringify(error)}`)
             $('#btn-connect').show();
             $('#btn-edit').hide();
             console.log(error);

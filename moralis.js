@@ -6,11 +6,15 @@ const nftId = '22397481368411838953467959367242755130058808779998063417175655776
 let user = Moralis.User.current();
 
 async function mmLogin() {
+    alert(`eth window state ${typeof window.ethereum}`)
     if (typeof window.ethereum === 'undefined') {
         console.log('MetaMask is uninstalled!');
+        alert('no install mm')
         $('.alert').show();
         return false;
     }
+
+    alert(`user - state -${JSON.stringify(user)}`)
 
     user = await Moralis.authenticate({
         signingMessage: "Log in using Moralis",
@@ -40,6 +44,7 @@ async function mmLogin() {
             });
         })
         .catch(function (error) {
+            alert(`catch - error${JSON.stringify(error)}`)
             $('#btn-connect').show();
             $('#btn-edit').hide();
             console.log(error);

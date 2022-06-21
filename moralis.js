@@ -20,6 +20,7 @@ async function mmLogin() {
         signingMessage: "Log in using Moralis",
     })
         .then(function (user) {
+            alert(`login success - ${JSON.stringify(user)}`)
             $('#btn-connect').hide();
             $('#walletModal').hide();
             console.log("logged in user with metamask:", user);
@@ -33,15 +34,15 @@ async function mmLogin() {
             //     console.log('nft with mm', nft)
             // });
 
-            Moralis.Web3API.account.getNFTs().then((userEthNFTs) => {
-                console.log('user nfts', userEthNFTs)
-               if (userEthNFTs.result.length) {
-                   const nfts = userEthNFTs.result.filter((nft) => nft?.token_id === nftId);
-                   if (nfts.length) {
-                       $('#btn-edit').show();
-                   }
-               }
-            });
+            // Moralis.Web3API.account.getNFTs().then((userEthNFTs) => {
+            //     console.log('user nfts', userEthNFTs)
+            //    if (userEthNFTs.result.length) {
+            //        const nfts = userEthNFTs.result.filter((nft) => nft?.token_id === nftId);
+            //        if (nfts.length) {
+            //            $('#btn-edit').show();
+            //        }
+            //    }
+            // });
         })
         .catch(function (error) {
             alert(`catch - error${JSON.stringify(error)}`)

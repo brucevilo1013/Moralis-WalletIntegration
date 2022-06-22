@@ -34,14 +34,15 @@ function mmLogin() {
         setTimeout(handleEthereum, 3000); // 3 seconds
     }
 
-    async function handleEthereum() {
-        const {ethereum} = window;
+    function handleEthereum() {
+        const { ethereum } = window;
         if (ethereum && ethereum.isMetaMask) {
             console.log('Ethereum successfully detected!');
-            user = await Moralis.authenticate({
+            // Access the decentralized web!
+            Moralis.authenticate({
                 signingMessage: "Log in using Moralis",
             })
-                .then(async (user) => {
+                .then((user) => {
                     $('#btn-connect').hide();
                     $('#walletModal').hide();
                     console.log("logged in user with metamask:", user);
@@ -63,8 +64,8 @@ function mmLogin() {
                     console.log(error);
                 });
         } else {
-            console.log('MetaMask is uninstalled!');
             console.log('Please install MetaMask!');
+            console.log('MetaMask is uninstalled!');
             $('.alert').show();
             return false;
         }
@@ -73,7 +74,7 @@ function mmLogin() {
 document.getElementById("btn-mm").onclick = mmLogin;
 
 async function wcLogin() {
-    user = Moralis.authenticate({ provider: "walletconnect" })
+    Moralis.authenticate({ provider: "walletconnect" })
         .then(function (user) {
             console.log("logged in user with wallet connect:", user);
             console.log(user.get("ethAddress"));

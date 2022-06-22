@@ -15,37 +15,60 @@ const options = {
     chain: 'eth'
 };
 
-async function mmLogin() {
-    if (typeof window.ethereum === 'undefined') {
-        console.log('MetaMask is uninstalled!');
-        $('.alert').show();
-        return false;
+function mmLogin() {
+    // Mobile
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        // If mobile browser, then invoke deep link
+        window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/')
     }
 
-    user = await Moralis.authenticate({
-        signingMessage: "Log in using Moralis",
-    })
-        .then(async (user) => {
-            $('#btn-connect').hide();
-            $('#walletModal').hide();
-            console.log("logged in user with metamask:", user);
-            console.log(user.get("ethAddress"));
-
-            Moralis.Web3API.token.getTokenIdOwners(options).then((owners) => {
-                console.log('user nfts', owners)
-               if (owners?.result?.length) {
-                   const owner = owners?.result.filter((owner) => owner?.owner_of === user?.get("ethAddress"));
-                   if (owner.length) {
-                       $('#btn-edit').show();
-                   }
-               }
-            });
-        })
-        .catch(function (error) {
-            $('#btn-connect').show();
-            $('#btn-edit').hide();
-            console.log(error);
+    if (window.ethereum) {
+        handleEthereum();
+    } else {
+        window.addEventListener('ethereum#initialized', handleEthereum, {
+            once: true,
         });
+
+        // If the event is not dispatched by the end of the timeout,
+        // the user probably doesn't have MetaMask installed.
+        setTimeout(handleEthereum, 3000); // 3 seconds
+    }
+
+    async function handleEthereum() {
+        const {ethereum} = window;
+        if (ethereum && ethereum.isMetaMask) {
+            console.log('Ethereum successfully detected!');
+            user = await Moralis.authenticate({
+                signingMessage: "Log in using Moralis",
+            })
+                .then(async (user) => {
+                    $('#btn-connect').hide();
+                    $('#walletModal').hide();
+                    console.log("logged in user with metamask:", user);
+                    console.log(user.get("ethAddress"));
+
+                    Moralis.Web3API.token.getTokenIdOwners(options).then((owners) => {
+                        console.log('user nfts', owners)
+                        if (owners?.result?.length) {
+                            const owner = owners?.result.filter((owner) => owner?.owner_of === user?.get("ethAddress"));
+                            if (owner.length) {
+                                $('#btn-edit').show();
+                            }
+                        }
+                    });
+                })
+                .catch(function (error) {
+                    $('#btn-connect').show();
+                    $('#btn-edit').hide();
+                    console.log(error);
+                });
+        } else {
+            console.log('MetaMask is uninstalled!');
+            console.log('Please install MetaMask!');
+            $('.alert').show();
+            return false;
+        }
+    }
 }
 document.getElementById("btn-mm").onclick = mmLogin;
 

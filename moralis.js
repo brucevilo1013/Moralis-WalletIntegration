@@ -16,31 +16,6 @@ const options = {
 };
 
 function mmLogin() {
-    // Mobile
-    const userAgent =  window.navigator.userAgent.toLowerCase();
-    const ios = /iphone|ipod|ipad/.test(userAgent);
-    const standalone = window.navigator.standalone;
-    const safari = /safari/.test(userAgent);
-    const chrome = /chrome/.test(userAgent);
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-
-        if (ios) {
-            if (!standalone && (safari || chrome)) {
-                alert('ios - safari')
-                window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/');
-            } else if (!standalone && !safari) {
-                alert('ios - webview')
-            }
-        } else {
-            if (userAgent.includes('wv')) {
-                alert('android - webview')
-            } else {
-                // alert('android - chrome')
-                window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/');
-            }
-        }
-    }
-
     if (window.ethereum) {
         handleEthereum();
     } else {
@@ -83,10 +58,15 @@ function mmLogin() {
                     console.log(error);
                 });
         } else {
-            console.log('Please install MetaMask!');
-            console.log('MetaMask is uninstalled!');
-            $('.alert').show();
-            return false;
+            // Mobile
+            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/');
+            } else {
+                console.log('Please install MetaMask!');
+                console.log('MetaMask is uninstalled!');
+                $('.alert').show();
+                return false;
+            }
         }
     }
 }

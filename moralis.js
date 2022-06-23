@@ -17,9 +17,20 @@ const options = {
 
 function mmLogin() {
     // Mobile
+    const userAgent =  window.navigator.userAgent.toLowerCase();
+    const ios = /iphone|ipod|ipad/.test(userAgent);
+    const is_uiwebview = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        // If mobile browser, then invoke deep link
-        window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/')
+        if (ios) {
+            if (!is_uiwebview) {
+                window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/')
+            }
+        } else {
+            if (!userAgent.includes('wv')) {
+                // If mobile browser, then invoke deep link
+                window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/')
+            }
+        }
     }
 
     if (window.ethereum) {

@@ -35,7 +35,7 @@ function mmLogin() {
             if (userAgent.includes('wv')) {
                 alert('android - webview')
             } else {
-                alert('android - chrome')
+                // alert('android - chrome')
                 window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/');
             }
         }

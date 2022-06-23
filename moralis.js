@@ -22,7 +22,7 @@ function mmLogin() {
     const standalone = window.navigator.standalone;
     const safari = /safari/.test(userAgent);
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/')
+        window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/');
 
         if (ios) {
             if (!standalone && safari) {

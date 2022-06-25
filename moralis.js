@@ -65,7 +65,9 @@ function mmLogin() {
             console.log('5555555555555555555555555555555')
             if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
                 console.log('66666666666666666666666')
-                window.open('dapp://brucevilo1013.github.io/Moralis-WalletIntegration/');
+                // window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/');
+                window.open('dapp://brucevilo1013.github.io/Moralis-WalletIntegration/', '_blank');
+
             } else {
                 console.log('Please install MetaMask!');
                 console.log('MetaMask is uninstalled!');

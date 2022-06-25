@@ -27,7 +27,21 @@ function mmLogin() {
 
         // If the event is not dispatched by the end of the timeout,
         // the user probably doesn't have MetaMask installed.
-        setTimeout(handleEthereum, 3000); // 3 seconds
+        // setTimeout(handleEthereum, 3000); // 3 seconds
+
+        // Mobile
+        console.log('5555555555555555555555555555555')
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            console.log('66666666666666666666666')
+            // window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/');
+            window.open('dapp://brucevilo1013.github.io/Moralis-WalletIntegration/');
+
+        } else {
+            console.log('Please install MetaMask!');
+            console.log('MetaMask is uninstalled!');
+            $('.alert').show();
+            return false;
+        }
     }
 
     function handleEthereum() {
@@ -61,20 +75,19 @@ function mmLogin() {
                     console.log('44444444444444444444', error);
                 });
         } else {
-            // Mobile
-            console.log('5555555555555555555555555555555')
-            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                console.log('66666666666666666666666')
-                // window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/');
-                let newTab = window.open();
-                newTab.location.href = 'dapp://brucevilo1013.github.io/Moralis-WalletIntegration/';
-
-            } else {
-                console.log('Please install MetaMask!');
-                console.log('MetaMask is uninstalled!');
-                $('.alert').show();
-                return false;
-            }
+            // // Mobile
+            // console.log('5555555555555555555555555555555')
+            // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            //     console.log('66666666666666666666666')
+            //     // window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/');
+            //     window.open('dapp://brucevilo1013.github.io/Moralis-WalletIntegration/');
+            //
+            // } else {
+            //     console.log('Please install MetaMask!');
+            //     console.log('MetaMask is uninstalled!');
+            //     $('.alert').show();
+            //     return false;
+            // }
         }
     }
 }

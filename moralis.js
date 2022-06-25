@@ -17,8 +17,10 @@ const options = {
 
 function mmLogin() {
     if (window.ethereum) {
+        console.log('11111111111111111111')
         handleEthereum();
     } else {
+        console.log('22222222222222222222')
         window.addEventListener('ethereum#initialized', handleEthereum, {
             once: true,
         });
@@ -30,7 +32,8 @@ function mmLogin() {
 
     function handleEthereum() {
         const { ethereum } = window;
-        if (ethereum && ethereum.isMetaMask) {
+        console.log('333333333333333333')
+        if (ethereum && ethereum?.isMetaMask) {
             console.log('Ethereum successfully detected!');
             // Access the decentralized web!
             Moralis.authenticate({
@@ -55,11 +58,13 @@ function mmLogin() {
                 .catch(function (error) {
                     $('#btn-connect').show();
                     $('#btn-edit').hide();
-                    console.log(error);
+                    console.log('44444444444444444444', error);
                 });
         } else {
             // Mobile
+            console.log('5555555555555555555555555555555')
             if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                console.log('66666666666666666666666')
                 window.open('https://metamask.app.link/dapp/brucevilo1013.github.io/Moralis-WalletIntegration/');
             } else {
                 console.log('Please install MetaMask!');
@@ -72,7 +77,7 @@ function mmLogin() {
 }
 document.getElementById("btn-mm").onclick = mmLogin;
 
-async function wcLogin() {
+function wcLogin() {
     Moralis.authenticate({ provider: "walletconnect" })
         .then(function (user) {
             console.log("logged in user with wallet connect:", user);

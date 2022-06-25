@@ -21,9 +21,9 @@ function mmLogin() {
         handleEthereum();
     } else {
         console.log('22222222222222222222')
-        window.addEventListener('ethereum#initialized', handleEthereum, {
-            once: true,
-        });
+        // window.addEventListener('ethereum#initialized', handleEthereum, {
+        //     once: true,
+        // });
 
         // If the event is not dispatched by the end of the timeout,
         // the user probably doesn't have MetaMask installed.

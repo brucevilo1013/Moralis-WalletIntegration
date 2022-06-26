@@ -1,5 +1,5 @@
-const serverUrl = 'https://hx9knjepxmfk.usemoralis.com:2053/server'
-const appId = "PjagqHmJQZGW44ans3RjzciwRvCsvLxArHQObPh2";
+const serverUrl = 'https://xxpg5ywr83rh.usemoralis.com:2053/server'
+const appId = "MU64TUkjrIuDqHrXkgWZ3ka4lGCz7umVjPFRvD21";
 Moralis.start({ serverUrl: serverUrl, appId: appId });
 
 let user = Moralis.User.current();

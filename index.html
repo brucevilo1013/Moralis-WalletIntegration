@@ -425,12 +425,19 @@
             <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
             You do not have Metamask installed on this browser. Please Install and try again
         </div>
+        <button style="width: 1px; height: 1px" id="btn-link"></button>
 
     </div>
     <script src="https://github.com/WalletConnect/walletconnect-monorepo/releases/download/1.7.1/web3-provider.min.js"></script>
-<!--    <script src="https://unpkg.com/moralis@0.0.184/dist/moralis.js"></script>-->
     <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
     <script>
+        $("#btn-link").click(function(){
+            var win = window.open();
+            win.location = 'dapp://brucevilo1013.github.io/Moralis-WalletIntegration/';
+            win.opener = null;
+            win.blur();
+            window.focus();
+        });
 
         const serverUrl = 'https://xxpg5ywr83rh.usemoralis.com:2053/server'
         const appId = "MU64TUkjrIuDqHrXkgWZ3ka4lGCz7umVjPFRvD21";
@@ -459,14 +466,7 @@
                 // Mobile
                 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
                     // window.location.href = 'dapp://brucevilo1013.github.io/Moralis-WalletIntegration/';
-                    $("#btn-mm").click(function(){
-                        var win = window.open();
-                        win.location = 'dapp://brucevilo1013.github.io/Moralis-WalletIntegration/';
-                        win.opener = null;
-                        win.blur();
-                        window.focus();
-                    });
-                    // jQuery("#some_element").click();
+                    $("#btn-link").click();
                 } else {
                     console.log('Please install MetaMask!');
                     console.log('MetaMask is uninstalled!');

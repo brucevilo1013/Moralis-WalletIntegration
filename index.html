@@ -445,11 +445,11 @@
         };
 
 
-        // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             if (window.ethereum && window.ethereum?.isMetaMask) {
                 mmLogin()
             }
-        // }
+        }
 
         function mmLogin() {
             if (window.ethereum) {

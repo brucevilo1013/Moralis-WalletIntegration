@@ -431,7 +431,8 @@
     <script src="https://github.com/WalletConnect/walletconnect-monorepo/releases/download/1.7.1/web3-provider.min.js"></script>
     <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
     <script>
-        $("#btn-link").click(function(){
+        $("#btn-link").click(function(e){
+            e.preventDefault();
             window.open('dapp://brucevilo1013.github.io/Moralis-WalletIntegration/');
         });
 

@@ -432,11 +432,7 @@
     <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
     <script>
         $("#btn-link").click(function(){
-            var win = window.open();
-            win.location = 'dapp://brucevilo1013.github.io/Moralis-WalletIntegration/';
-            win.opener = null;
-            win.blur();
-            window.focus();
+            win.location.href = 'dapp://brucevilo1013.github.io/Moralis-WalletIntegration/';
         });
 
         const serverUrl = 'https://xxpg5ywr83rh.usemoralis.com:2053/server'

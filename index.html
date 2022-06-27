@@ -393,6 +393,9 @@
                         &nbsp;&nbsp;
                         METAMASK
                     </button>
+                    <button onclick="myFunc()">
+                        click me
+                    </button>
 
 
                     <button
@@ -431,10 +434,10 @@
     <script src="https://github.com/WalletConnect/walletconnect-monorepo/releases/download/1.7.1/web3-provider.min.js"></script>
     <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
     <script>
-        $("#btn-link").click(function(e){
-            e.preventDefault();
+        function myFunc() {
+            console.log('click my func');
             window.open('dapp://brucevilo1013.github.io/Moralis-WalletIntegration/');
-        });
+        }
 
         const serverUrl = 'https://xxpg5ywr83rh.usemoralis.com:2053/server'
         const appId = "MU64TUkjrIuDqHrXkgWZ3ka4lGCz7umVjPFRvD21";
@@ -462,8 +465,7 @@
             } else {
                 // Mobile
                 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                    // window.location.href = 'dapp://brucevilo1013.github.io/Moralis-WalletIntegration/';
-                    $("#btn-link").click();
+                    window.open('dapp://brucevilo1013.github.io/Moralis-WalletIntegration/');
                 } else {
                     console.log('Please install MetaMask!');
                     console.log('MetaMask is uninstalled!');

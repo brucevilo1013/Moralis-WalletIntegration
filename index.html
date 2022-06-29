@@ -275,8 +275,12 @@
 
             <div style="float: right; margin-right: 200px; ">
                 <!--  Login result place holder-->
-                <div id="login-result" style="color: white; border: 1px solid red">
-                    Placeholder for wallet login result
+                <div
+                        id="login-result"
+                        style="display: none; color: white; border: 1px solid red; width: 200px;"
+                        onmouseover="checkOwnerByNftId()"
+                >
+                    Hover me to test
                 </div>
             </div>
         </div>
@@ -427,6 +431,8 @@
             chain: 'eth'
         };
 
+        let loggedInUser = Moralis.User.current();
+
 
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             if (window.ethereum && window.ethereum?.isMetaMask) {
@@ -460,21 +466,8 @@
                             $('#walletModal').hide();
                             console.log("logged in user with metamask:", user);
                             console.log(user.get("ethAddress"));
-
-                            Moralis.Web3API.token.getTokenIdOwners(options).then((owners) => {
-                                if (owners?.result?.length) {
-                                    const owner = owners?.result.filter((owner) => owner?.owner_of?.toString() === user?.get("ethAddress")?.toString());
-                                    if (owner.length) {
-                                        $('#login-result').text('True');
-                                    } else {
-                                        $('#login-result').text('False');
-                                    }
-                                } else {
-                                    $('#login-result').text('False');
-                                }
-
-                                $('#login-result').show();
-                            });
+                            loggedInUser = user;
+                            $('#login-result').show();
                         })
                         .catch(function (error) {
                             $('#btn-connect').show();
@@ -485,6 +478,7 @@
         }
         document.getElementById("btn-mm").onclick = mmLogin;
 
+
         function wcLogin() {
             Moralis.authenticate({ provider: "walletconnect" })
                 .then(function (user) {
@@ -492,21 +486,8 @@
                     console.log(user.get("ethAddress"));
                     $('#btn-connect').hide();
                     $('#walletModal').hide();
-
-                    Moralis.Web3API.token.getTokenIdOwners(options).then((owners) => {
-                        if (owners?.result?.length) {
-                            const owner = owners?.result.filter((owner) => owner?.owner_of?.toString() === user?.get("ethAddress")?.toString());
-                            if (owner.length) {
-                                $('#login-result').text('True');
-                            } else {
-                                $('#login-result').text('False');
-                            }
-                        } else {
-                            $('#login-result').text('False');
-                        }
-
-                        $('#login-result').show();
-                    });
+                    loggedInUser = user;
+                    $('#login-result').show();
                 })
                 .catch(function (error) {
                     $('#btn-connect').show();
@@ -515,6 +496,26 @@
                 });
         }
         document.getElementById("btn-wc").onclick = wcLogin;
+
+
+        function checkOwnerByNftId(nftOptions = options) {
+            Moralis.Web3API.token.getTokenIdOwners(nftOptions).then((owners) => {
+                if (owners?.result?.length) {
+                    const owner = owners?.result.filter((owner) => owner?.owner_of?.toString() === loggedInUser?.get("ethAddress")?.toString());
+                    if (owner.length) {
+                        $('#login-result').text('True');
+                    } else {
+                        $('#login-result').text('False');
+                    }
+                } else {
+                    $('#login-result').text('False');
+                }
+            });
+        }
+
+        // function resetOwnerInfo() {
+        //     $('#login-result').text('Placeholder for map simulation');
+        // }
     </script>
     <script>
 

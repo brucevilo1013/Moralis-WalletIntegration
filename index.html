@@ -274,24 +274,9 @@
 
 
             <div style="float: right; margin-right: 200px; ">
-                <div>
-                    <!--  edit nft button-->
-                    <button
-                            id="btn-edit"
-                            style="
-                        display: none;
-                        width: 264px;
-                        float: right;
-                        margin-top: 16px;
-                        padding: 8px; border-radius: 4px; cursor: pointer;    border-radius: 24px;
-                        cursor: pointer;
-                        color: white;
-                        background: black;
-                        font-family: arial;
-                        font-size: 20px;"
-                    >
-                        EDIT
-                    </button>
+                <!--  Login result place holder-->
+                <div id="login-result" style="color: white; border: 1px solid red">
+                    Placeholder for wallet login result
                 </div>
             </div>
         </div>
@@ -429,82 +414,6 @@
     <script src="https://github.com/WalletConnect/walletconnect-monorepo/releases/download/1.7.1/web3-provider.min.js"></script>
     <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
     <script>
-        function DeepLinker(options) {
-            if (!options) {
-                throw new Error('no options')
-            }
-
-            var hasFocus = true;
-            var didHide = false;
-
-            // window is blurred when dialogs are shown
-            function onBlur() {
-                hasFocus = false;
-            };
-
-            // document is hidden when native app is shown or browser is backgrounded
-            function onVisibilityChange(e) {
-                if (e.target.visibilityState === 'hidden') {
-                    didHide = true;
-                }
-            };
-
-            // window is focused when dialogs are hidden, or browser comes into view
-            function onFocus() {
-                if (didHide) {
-                    if (options.onReturn) {
-                        options.onReturn();
-                    }
-
-                    didHide = false; // reset
-                } else {
-                    // ignore duplicate focus event when returning from native app on
-                    // iOS Safari 13.3+
-                    if (!hasFocus && options.onFallback) {
-                        // wait for app switch transition to fully complete - only then is
-                        // 'visibilitychange' fired
-                        setTimeout(function() {
-                            // if browser was not hidden, the deep link failed
-                            if (!didHide) {
-                                options.onFallback();
-                            }
-                        }, 1000);
-                    }
-                }
-
-                hasFocus = true;
-            };
-
-            // add/remove event listeners
-            // `mode` can be "add" or "remove"
-            function bindEvents(mode) {
-                [
-                    [window, 'blur', onBlur],
-                    [document, 'visibilitychange', onVisibilityChange],
-                    [window, 'focus', onFocus],
-                ].forEach(function(conf) {
-                    conf[0][mode + 'EventListener'](conf[1], conf[2]);
-                });
-            }
-
-            // add event listeners
-            bindEvents('add');
-
-            // expose public API
-            this.destroy = bindEvents.bind(null, 'remove');
-            this.openURL = function(url) {
-                // it can take a while for the dialog to appear
-                var dialogTimeout = 500;
-
-                setTimeout(function() {
-                    if (hasFocus && options.onIgnored) {
-                        options.onIgnored();
-                    }
-                }, dialogTimeout);
-
-                window.location = url;
-            };
-        }
         const serverUrl = 'https://xxpg5ywr83rh.usemoralis.com:2053/server'
         const appId = "MU64TUkjrIuDqHrXkgWZ3ka4lGCz7umVjPFRvD21";
         Moralis.start({ serverUrl: serverUrl, appId: appId });
@@ -532,15 +441,6 @@
                 // Mobile
                 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
                     window.open('dapp://brucevilo1013.github.io/Moralis-WalletIntegration/');
-                    // var linker = new DeepLinker({
-                    //     onFallback: function() {
-                    //         document.getElementById("myspan").textContent="newtext";
-                    //         $('.alert').text('Must be opened in Metamask')
-                    //         $('.alert').show();
-                    //     },
-                    // });
-                    //
-                    // linker.openURL('dapp://brucevilo1013.github.io/Moralis-WalletIntegration/');
                 } else {
                     console.log('Please install MetaMask!');
                     console.log('MetaMask is uninstalled!');
@@ -562,18 +462,23 @@
                             console.log(user.get("ethAddress"));
 
                             Moralis.Web3API.token.getTokenIdOwners(options).then((owners) => {
-                                console.log('user nfts', owners)
                                 if (owners?.result?.length) {
-                                    const owner = owners?.result.filter((owner) => owner?.owner_of === user?.get("ethAddress"));
+                                    const owner = owners?.result.filter((owner) => owner?.owner_of?.toString() === user?.get("ethAddress")?.toString());
                                     if (owner.length) {
-                                        $('#btn-edit').show();
+                                        $('#login-result').text('True');
+                                    } else {
+                                        $('#login-result').text('False');
                                     }
+                                } else {
+                                    $('#login-result').text('False');
                                 }
+
+                                $('#login-result').show();
                             });
                         })
                         .catch(function (error) {
                             $('#btn-connect').show();
-                            $('#btn-edit').hide();
+                            $('#login-result').hide();
                         });
                 }
             }
@@ -592,14 +497,20 @@
                         if (owners?.result?.length) {
                             const owner = owners?.result.filter((owner) => owner?.owner_of?.toString() === user?.get("ethAddress")?.toString());
                             if (owner.length) {
-                                $('#btn-edit').show();
+                                $('#login-result').text('True');
+                            } else {
+                                $('#login-result').text('False');
                             }
+                        } else {
+                            $('#login-result').text('False');
                         }
+
+                        $('#login-result').show();
                     });
                 })
                 .catch(function (error) {
                     $('#btn-connect').show();
-                    $('#btn-edit').hide();
+                    $('#login-result').hide();
                     console.log(error);
                 });
         }

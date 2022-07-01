@@ -274,13 +274,32 @@
 
 
         <div style="float: right; margin-right: 200px; ">
-            <!--  Login result place holder-->
-            <div
-                    id="login-result"
-                    style="display: none; color: white; border: 1px solid red; width: 200px;"
-                    onmouseover="checkOwnerByNftId()"
-            >
-                Hover me to test
+            <div style="display: flex">
+                <!--  edit nft button-->
+                <button
+                        id="btn-edit"
+                        style="
+                        display: none;
+                        width: 264px;
+                        float: right;
+                        padding: 8px; border-radius: 4px; cursor: pointer;    border-radius: 24px;
+                        cursor: pointer;
+                        color: white;
+                        background: black;
+                        font-family: arial;
+                        font-size: 20px;"
+                >
+                    EDIT
+                </button>
+
+                <!--  Login result place holder-->
+                <div
+                        id="login-result"
+                        style="display: none; color: white; border: 1px solid red; width: 200px; margin-left: 20px"
+                        onmouseover="checkOwnerByNftId()"
+                >
+                    Hover me to test
+                </div>
             </div>
         </div>
     </div>
@@ -418,8 +437,8 @@
 <script src="https://github.com/WalletConnect/walletconnect-monorepo/releases/download/1.7.1/web3-provider.min.js"></script>
 <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
 <script>
-    const serverUrl = 'https://xxpg5ywr83rh.usemoralis.com:2053/server'
-    const appId = "MU64TUkjrIuDqHrXkgWZ3ka4lGCz7umVjPFRvD21";
+    const serverUrl = 'https://hxz8obdzmtpb.usemoralis.com:2053/server'
+    const appId = "0D3y2TaUKxav3Em1zaTJdtxCUH0KJzRzTILbLECM";
     Moralis.start({ serverUrl: serverUrl, appId: appId });
     const options = {
         address: '0x495f947276749Ce646f68AC8c248420045cb7b5e',

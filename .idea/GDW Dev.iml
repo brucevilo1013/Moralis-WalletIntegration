@@ -9,5 +9,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="moralis" level="application" />
+    <orderEntry type="library" name="moralis" level="application" />
+    <orderEntry type="library" name="web3-provider" level="application" />
   </component>
 </module>
